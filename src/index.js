@@ -4,7 +4,7 @@ require('discord-buttons')(client);
 const fs = require('fs').promises;
 const { updatePlayerCount } = require('./commands/utiles/statusbot')
 const path = require('path');
-const { token, prefix } = require('../config.json');
+const { token, prefix } = require('../config/config.json');
 const { firstLetterM } = require('./helper');
 const botVersion = require('../package.json').version;
 var config = require('./bdd.js');

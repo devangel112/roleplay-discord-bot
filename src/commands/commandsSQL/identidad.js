@@ -1,5 +1,5 @@
 var config = require('../../bdd.js');
-const { RolID } = require('../../../config.json');
+const { RolID } = require('../../../config/config.json');
 const { MessageEmbed } = require('discord.js');
 var connection= config.connection
 

@@ -1,4 +1,4 @@
-const { database_user, database_password, database_base, database_host, database_port } = require('../config.json');
+const { database_user, database_password, database_base, database_host, database_port } = require('../config/config.json');
 var mysql = require('mysql')
 
 var config = {
