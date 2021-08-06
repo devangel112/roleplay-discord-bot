@@ -4,7 +4,7 @@ require('discord-buttons')(client);
 const fs = require('fs').promises;
 const { updatePlayerCount } = require('./commands/utiles/statusbot')
 const path = require('path');
-const { token, prefix } = require('../config/config.json');
+const { token, prefix, developer } = require('../config/config.json');
 const { firstLetterM } = require('./helper');
 const botVersion = require('../package.json').version;
 var config = require('./bdd.js');
@@ -22,7 +22,7 @@ client.on('message', async (message) => {
   if (message.author.bot) return;
   if (message.channel.id === "750399425184137377") {
     let writeEmbed = new MessageEmbed()
-      .setAuthor('Arcanus Roleplay V2', 'https://cdn.discordapp.com/attachments/780970578319638528/822679629868695572/image.png')
+      .setAuthor('Arcanus Roleplay', 'https://cdn.discordapp.com/attachments/780970578319638528/822679629868695572/image.png')
       .setDescription(`** [:bulb:] Sugerencia enviada por:** <@${message.author.id}>\n- ${firstLetterM(write)}`)
       .setFooter("» Vota ✅ si apoyas la sugerencia o ❌ si estás en contra.")
       .setTimestamp()
@@ -84,9 +84,9 @@ client.on('message', async function (message) {
 
 client.on('guildMemberAdd', member => {
   const welcomeEmbed = new MessageEmbed()
-    .setColor('#5cf000')
-    .setAuthor('Arcanus RP', `https://media.discordapp.net/attachments/780970578319638528/822684960670351370/Untitled.png?width=268&height=175`)
-    .setTitle('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano nº __' + member.guild.memberCount + '__')
+    .setColor('GREEN')
+    .setAuthor('Arcanus RP', member.guild.iconURL())
+    .setDescription('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano número ' + member.guild.memberCount)
     .setImage('https://cdn.mos.cms.futurecdn.net/93GAa4wm3z4HbenzLbxWeQ-650-80.jpg.webp')
     .setTimestamp()
   member.guild.channels.cache.get(`362387841982136320`).send(welcomeEmbed)
@@ -94,9 +94,9 @@ client.on('guildMemberAdd', member => {
 
 client.on('guildMemberRemove', member => {
   const goodbyeEmbed = new MessageEmbed()
-    .setColor('#f00000')
-    .setAuthor('Arcanus RP', `https://media.discordapp.net/attachments/780970578319638528/822684960670351370/Untitled.png?width=268&height=175`)
-    .setTitle('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arkanus RP')
+    .setColor('RED')
+    .setAuthor('Arcanus RP', member.guild.iconURL())
+    .setDescription('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arcanus RP')
     .setImage('https://gamewith-en.akamaized.net/article/thumbnail/rectangle/22183.png')
     .setTimestamp()
   member.guild.channels.cache.get(`362387841982136320`).send(goodbyeEmbed)
@@ -105,20 +105,8 @@ client.on('guildMemberRemove', member => {
 client.on('clickButton', async (button) => {
   console.log(button.id)
   switch (button.id) {
-    case "enviarMensaje":
-      await button.reply.send(`Ola`)
-      break;
-    case "suma":
-      await button.reply.send(`${1 + 1}`)
-      break;
-    case "hacerCK":
-      // TODO
-      break;
-    case "cancelarCK":
-      // TODO
-      break;
     default:
-      await button.reply.send(`Función de botón no encontrada.`)
+      await button.reply.send(`Función de botón no encontrada. Comunícate con el desarrollador. ${client.users.find(developer).tag}`)
       break;
   }
 });

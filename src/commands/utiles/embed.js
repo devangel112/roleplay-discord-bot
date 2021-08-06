@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
     if (!canalAEnviar) {
         let embedError = new discord.MessageEmbed()
             .setAuthor(`Arcanus RP`, message.guild.iconURL())
-            .setDescription(`¡Debes mencionar el canal al que deseas enviar el mensaje!`)
+            .setDescription(`¡Debes **mencionar el canal** al que deseas enviar el mensaje!\n**Uso correcto:** ${prefix}embed (Canal a enviar) (JSON)\n\n**Ejemplo:** ${prefix}embed <#822657705969451028> {"author": "(autor)", "title": "(titulo)", "description": "(descripcion)", "image": "(url de la imagen)" "footer": "(pie de mensaje)", "color": "(color))"}\n\n**El color debe estar en inglés.**\nAzul: blue, Rojo: red, Naranja: orange, Amarillo: yellow, etcétera.`)
             .setFooter(`Arcanus RP - Bot`)
             .setTimestamp()
             .setColor("ORANGE")
@@ -23,17 +23,18 @@ module.exports.run = async (client, message, args) => {
                 args.shift()
                 // Obtiene los datos JSON.
                 const json = JSON.parse(args.join(' '))
-                const { author = '', footer = '', color = '' } = json
+                const { author = '', footer = '', color = '', image = ''} = json
 
-                console.log(json)
+                // console.log(json)
 
                 let embed = new discord.MessageEmbed()
                 .setAuthor(json.author)
                 .setTitle(json.title)
                 .setDescription(json.description)
                 .setFooter(json.footer)
+                .setImage(json.image)
                 .setTimestamp()
-                .setColor(json.color)
+                .setColor(json.color.toUpperCase())
 
                 // Enviar el mensaje.
                 canalAEnviar.send(embed)

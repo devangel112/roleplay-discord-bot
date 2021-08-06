@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args) => {
 
     let button = new disbut.MessageButton()
         .setLabel("Sí")
-        .setStyle("orange")
+        .setStyle("blurple")
         .setID("example_id")
 
     let button2 = new disbut.MessageButton()
