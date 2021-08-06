@@ -1,13 +1,13 @@
 var config = require('../../bdd.js');
 const { MessageEmbed } = require('discord.js');
-const { RolID } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
 var connection = config.connection
 
 
 module.exports.run = async (client, message, args) => {
     const icon = message.guild.iconURL();
     const nameEmbed = new MessageEmbed()
-        .setFooter("MrcSQLSystem")
+        .setFooter(embed_footer_sever)
     if (message.member.hasPermission("ADMINISTRATOR")) {
         let hex = args[0]
         if (hex.startsWith("steam:") === false) {
@@ -24,7 +24,7 @@ module.exports.run = async (client, message, args) => {
             if (!user) {
                 nameEmbed.setColor("RED")
                     .setDescription(`No se encontró ningún usuario con el ID hexadecimal ingresado.`)
-                    .setAuthor("ArcanusRP - SQL", icon)
+                    .setAuthor(embed_author_server, icon)
                     .setTitle("¡Operación fallida!")
                 message.channel.send(nameEmbed)
                 return;
@@ -33,14 +33,14 @@ module.exports.run = async (client, message, args) => {
             connection.query(`UPDATE users SET lastname = '${lastname}' WHERE lastname = '${user.lastname}'`, (err, result) => { if (err) console.log(err) })
             nameEmbed.setColor("GREEN")
                 .setDescription(`${hex} ID del jugador con identificación \`${oldname} ${oldlastname}\` Fue cambiado a \`${firstname} ${lastname}\` Con éxito!.`)
-                .setAuthor("ArcanusRP - SQL", icon)
+                .setAuthor(embed_author_server, icon)
                 .setTitle("¡El cambio fue realizado con exito!")
             message.channel.send(nameEmbed)
         })
 
     } else {
         nameEmbed.setColor("RED")
-            .setAuthor("ArcanusRP - SQL", icon)
+            .setAuthor(embed_author_server, icon)
             .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
             .setTitle("¡Operación fallida!")
         message.channel.send(nameEmbed)

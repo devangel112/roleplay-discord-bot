@@ -1,13 +1,12 @@
 var config = require('../../bdd.js');
 const { MessageEmbed } = require('discord.js');
-const { RolID } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
 var connection = config.connection
 
 
 module.exports.run = async (client, message, args) => {
-    const icon = message.guild.iconURL();
     const ckEmbed = new MessageEmbed()
-        .setFooter("MrcSQLSystem")
+        .setFooter(embed_footer_sever)
     if (message.member.hasPermission("ADMINISTRATOR")) {
         let hex = args[0]
         if (!hex) return message.channel.send("Debes entrar en un hex.")
@@ -41,13 +40,13 @@ module.exports.run = async (client, message, args) => {
                         })
                         connection.query("DELETE FROM phone_users_contacts WHERE identifier = ?", hex, (err, results, fields) => {
                         })
-                        ckEmbed.setAuthor("ArcanusRP - SQL", icon)
+                        ckEmbed.setAuthor(embed_author_server, message.guild.iconURL())
                             .setTitle("¡La petición fue un exito!")
                             .setColor("GREEN")
                             .setDescription(`${hex} ¡La petición de ck fue ejecutada con exito!`)
                         message.channel.send(ckEmbed)
                     } else {
-                        ckEmbed.setAuthor("ArcanusRP - SQL", icon)
+                        ckEmbed.setAuthor(embed_author_server, message.guild.iconURL())
                             .setTitle("¡Error!")
                             .setColor("RED")
                             .setDescription("¡No se encontró un usuario con el ID ingresado! Inténtalo de nuevo.")

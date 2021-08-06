@@ -1,5 +1,5 @@
 var config = require('../../bdd.js');
-const { RolID } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
 const { MessageEmbed } = require('discord.js');
 var connection= config.connection
 
@@ -7,7 +7,7 @@ var connection= config.connection
 module.exports.run = async(client, message, args) => {
     const icon = message.guild.iconURL();
     const jobEmbed = new MessageEmbed()
-    .setFooter("MrcSQLSystem")
+    .setFooter(embed_footer_sever)
     if(message.member.hasPermission("ADMINISTRATOR")) {
         let hex = args[0]
         if (hex.startsWith("steam:") === false) {
@@ -30,13 +30,13 @@ module.exports.run = async(client, message, args) => {
                 jobEmbed.setColor("GREEN")
                 .setDescription(`${hex} El id ingresado es valido, La antigua profesión \`${antiguo}(${lastjob})\` Ajustado a \`${trabajo}(${grade})\` `)
                 .setTitle("¡El cambio fue realizado exitósamente!")
-                .setAuthor("ArcanusRP - SQL", icon)
+                .setAuthor(embed_author_server, icon)
                 message.channel.send(jobEmbed)
             } else {
                 jobEmbed.setColor("RED")
                 .setDescription(`No se encontró ningún usuario con el ID hexadecimal ingresado.`)
                 .setTitle("¡Operación fallida!")
-                .setAuthor("ArcanusRP - SQL", icon)
+                .setAuthor(embed_author_server, icon)
                 message.channel.send(jobEmbed)
                 return;
             }
@@ -45,7 +45,7 @@ module.exports.run = async(client, message, args) => {
         jobEmbed.setColor("RED")
         .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
         .setTitle("¡Operación fallida!")
-        .setAuthor("ArcanusRP - SQL", icon)
+        .setAuthor(embed_author_server, icon)
         message.channel.send(jobEmbed)
         return;
     }

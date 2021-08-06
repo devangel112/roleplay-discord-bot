@@ -1,17 +1,19 @@
 {
     "token": "YOUR_AWESOME_TOKEN_HERE",
     "prefix": "!",
-    "community_name": "ArcanusRP",
-    "role_access_id": "835901951144624208",
+    "embed_author_server": "Arcanus Roleplay",
+    "embed_footer_sever": "Arcanus Bot",
+    "log_channel": "835906010974912583",
+    "welcome_channel": "362387841982136320",
+    "bye_channel": "362387841982136320",
+    "suggestion_channel": "750399425184137377",
+    "tunning_code_channel": "780512296376074240",
     "code_length": 24,
     "numbers_in_code": false,
     "database_host": "127.0.0.1",
     "database_user": "root",
-    "database_port": "3306",
-    "database_password": "123456",
+    "database_port": "3310",
+    "database_password": "",
     "database_base": "es_extended",
-    "RolID":"835901951144624208",
-    "ServerID":"324031676558606339",
-    "streamRole": "738289455634448457",
-    "streamStatusRole": "738289508654776341"
+    "developer": "264850923069767680"
 }

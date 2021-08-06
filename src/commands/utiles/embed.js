@@ -25,8 +25,6 @@ module.exports.run = async (client, message, args) => {
                 const json = JSON.parse(args.join(' '))
                 const { author = '', footer = '', color = '', image = ''} = json
 
-                // console.log(json)
-
                 let embed = new discord.MessageEmbed()
                 .setAuthor(json.author)
                 .setTitle(json.title)

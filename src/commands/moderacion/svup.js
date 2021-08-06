@@ -7,7 +7,6 @@ module.exports.run = async (client, message, args) => {
         message.channel.send('|| @everyone ||')
         const info = new MessageEmbed()
             .setTitle('Informacion del servidor')
-            // .setURL('https://fivem://connect/l8xqrv')
             .setAuthor(name, icon)
             .setThumbnail(message.guild.iconURL({ dynamic: true, size: 512 }))
             .setDescription('¡El servidor se encuentra actualmente ACTIVO! - :white_check_mark:')
@@ -17,6 +16,5 @@ module.exports.run = async (client, message, args) => {
             .setTimestamp()
         message.channel.bulkDelete(1, true)
         message.channel.send(info)
-        // console.log(name, region, memberCount, icon )
     }
 }

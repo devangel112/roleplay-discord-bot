@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
                     .setDescription(`Se han eliminado **${amount}** mensajes.`)
                     .setFooter(`Arcanus RP`)
                     .setTimestamp()
-                    .setColor("RANDOM")
+                    .setColor("GREEN")
                 message.channel.send(embedDelete)
                     .then(msg => msg.delete({ timeout: 10000 }))
             }).catch(error => console.log(error.stack))
@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
                 .setDescription(`¡La cantidad de mensajes a eliminar debe ser menor o igual a **100**!`)
                 .setFooter(`Arcanus RP`)
                 .setTimestamp()
-                .setColor("RANDOM")
+                .setColor("RED")
             message.channel.send(embedDelete)
                 .then(msg => msg.delete({ timeout: 10000 }))
         }

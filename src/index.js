@@ -4,11 +4,9 @@ require('discord-buttons')(client);
 const fs = require('fs').promises;
 const { updatePlayerCount } = require('./commands/utiles/statusbot')
 const path = require('path');
-const { token, prefix, developer } = require('../config/config.json');
+const { token, prefix, developer, embed_author_server, embed_footer_sever, log_channel, suggestion_channel, welcome_channel, bye_channel } = require('../config/config.json');
 const { firstLetterM } = require('./helper');
 const botVersion = require('../package.json').version;
-var config = require('./bdd.js');
-var connection = config.connection
 
 client.commands = new Map();
 
@@ -20,11 +18,11 @@ client.on('ready', () => {
 client.on('message', async (message) => {
   const write = message.content;
   if (message.author.bot) return;
-  if (message.channel.id === "750399425184137377") {
+  if (message.channel.id === suggestion_channel) {
     let writeEmbed = new MessageEmbed()
-      .setAuthor('Arcanus Roleplay', 'https://cdn.discordapp.com/attachments/780970578319638528/822679629868695572/image.png')
-      .setDescription(`** [:bulb:] Sugerencia enviada por:** <@${message.author.id}>\n- ${firstLetterM(write)}`)
-      .setFooter("» Vota ✅ si apoyas la sugerencia o ❌ si estás en contra.")
+      .setAuthor(embed_author_server, message.guild.iconURL())
+      .setDescription(`[:bulb:] **Sugerencia enviada por:** <@${message.author.id}>\n- ${firstLetterM(write)}\n\n» Vota ✅ si apoyas la sugerencia o ❌ si estás en contra.`)
+      .setFooter(embed_footer_sever)
       .setTimestamp()
       .setColor("RANDOM");
     message.channel.send(writeEmbed).then((r) => {
@@ -52,21 +50,28 @@ client.on('message', async function (message) {
     const embedLog = new MessageEmbed()
       .setAuthor(message.author.tag, message.author.avatarURL())
       .setTitle(`Ha ejecutado el comando:`)
-      .setDescription(`\`${prefix}${cmdName}${argumentos}\``)
-      .setFooter(`Arcanus RP`)
+      .setDescription(`\n\`${prefix}${cmdName}${argumentos}\`\n\nEn el canal <#${message.channel.id}>`)
+      .setFooter(embed_footer_sever)
       .setColor("YELLOW")
       .setTimestamp()
 
-    message.guild.channels.cache.get(`835906010974912583`).send(embedLog);
+    message.guild.channels.cache.get(log_channel).send(embedLog);
 
   } else {
-    message.reply('¡El comando ingresado no existe!')
+    const embedError = new MessageEmbed()
+    .setAuthor(embed_author_server, message.guild.iconURL())
+    .setDescription(`${message.author} ¡El comando ingresado no existe!`)
+    .setFooter(embed_footer_sever)
+    .setColor("RED")
+    .setTimestamp()
+    message.channel.send(embedError).then(m => {
+      m.delete({ timeout: 10000 })
+    })
   }
 });
 
 (async function registerCommand(dir = 'commands') {
   let files = await fs.readdir(path.join(__dirname, dir)); // Creamos un arreglo llamado 'files' con todo lo que contiene la carpeta commands.
-  // console.log(files)
   for (let file of files) { // Recorremos el arreglo files para encontrar mas carpetas con archivos.
     let stat = await fs.lstat(path.join(__dirname, dir, file));
     if (stat.isDirectory()) {
@@ -76,7 +81,6 @@ client.on('message', async function (message) {
         let cmdName = file.substring(0, file.indexOf('.js'))
         let cmdModule = require(path.join(__dirname, dir, file));
         client.commands.set(cmdName, cmdModule);
-        // console.log(client.commands)
       }
     }
   }
@@ -85,11 +89,11 @@ client.on('message', async function (message) {
 client.on('guildMemberAdd', member => {
   const welcomeEmbed = new MessageEmbed()
     .setColor('GREEN')
-    .setAuthor('Arcanus RP', member.guild.iconURL())
+    .setAuthor(embed_author_server, member.guild.iconURL())
     .setDescription('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano número ' + member.guild.memberCount)
     .setImage('https://cdn.mos.cms.futurecdn.net/93GAa4wm3z4HbenzLbxWeQ-650-80.jpg.webp')
     .setTimestamp()
-  member.guild.channels.cache.get(`362387841982136320`).send(welcomeEmbed)
+  member.guild.channels.cache.get(welcome_channel).send(welcomeEmbed)
 })
 
 client.on('guildMemberRemove', member => {
@@ -99,14 +103,19 @@ client.on('guildMemberRemove', member => {
     .setDescription('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arcanus RP')
     .setImage('https://gamewith-en.akamaized.net/article/thumbnail/rectangle/22183.png')
     .setTimestamp()
-  member.guild.channels.cache.get(`362387841982136320`).send(goodbyeEmbed)
+  member.guild.channels.cache.get(bye_channel).send(goodbyeEmbed)
 })
 
 client.on('clickButton', async (button) => {
-  console.log(button.id)
   switch (button.id) {
     default:
-      await button.reply.send(`Función de botón no encontrada. Comunícate con el desarrollador. ${client.users.find(developer).tag}`)
+      const embed = new MessageEmbed()
+        .setAuthor()
+        .setTitle()
+        .setDescription(`Función de botón no encontrada. Comunícate con el desarrollador. ${client.users.cache.find(user => user.id === developer).tag}`)
+        .setFooter()
+        .setTimestamp()
+      await button.reply.send(embed)
       break;
   }
 });
