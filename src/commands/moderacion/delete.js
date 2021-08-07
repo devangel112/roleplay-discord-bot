@@ -1,4 +1,6 @@
 const { MessageEmbed } = require('discord.js')
+const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
+
 module.exports.run = async (client, message, args) => {
     if (message.member.hasPermission('ADMINISTRATOR')) {
         var amount = args[0]
@@ -9,7 +11,7 @@ module.exports.run = async (client, message, args) => {
                 let embedDelete = new MessageEmbed()
                     .setAuthor(message.author.tag, message.author.avatarURL())
                     .setDescription(`Se han eliminado **${amount}** mensajes.`)
-                    .setFooter(`Arcanus RP`)
+                    .setFooter(embed_footer_sever)
                     .setTimestamp()
                     .setColor("GREEN")
                 message.channel.send(embedDelete)
@@ -19,7 +21,7 @@ module.exports.run = async (client, message, args) => {
             let embedDelete = new MessageEmbed()
                 .setAuthor(message.author.tag, message.author.avatarURL())
                 .setDescription(`¡La cantidad de mensajes a eliminar debe ser menor o igual a **100**!`)
-                .setFooter(`Arcanus RP`)
+                .setFooter(embed_footer_sever)
                 .setTimestamp()
                 .setColor("RED")
             message.channel.send(embedDelete)
