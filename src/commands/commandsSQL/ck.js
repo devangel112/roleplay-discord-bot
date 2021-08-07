@@ -54,7 +54,7 @@ module.exports.run = async (client, message, args) => {
                             SELECT * FROM hotels_rooms WHERE owner = "";
                         */
                         ckEmbed.setAuthor(embed_author_server, message.guild.iconURL())
-                            .setTitle("¡La petición fue un exito!")
+                        .setTitle(`¡Acción completada!`)
                             .setColor("GREEN")
                             .setDescription(`${license} ¡La petición de ck fue ejecutada con exito!`)
                         message.channel.send(ckEmbed)

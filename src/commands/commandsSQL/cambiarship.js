@@ -9,28 +9,32 @@ module.exports.run = async(client, message, args) => {
     const telEmbed = new MessageEmbed()
     .setFooter(embed_footer_sever)
     if (message.member.hasPermission("ADMINISTRATOR")) {
-        let hex = args[0]
-        if (hex.startsWith("steam:") === false) {
-            hex = `steam:${hex}`
-        }
-        let number = args[1]
+        let license = args[0]
+        /*if (license.startsWith("steam:") === false) {
+            license = `steam:${license}`
+        }*/
+        let newPhoneNumber = args[1]
 
-        connection.query("SELECT * FROM users WHERE identifier = ?",hex,(err,result) => {
+        connection.query("SELECT * FROM users WHERE identifier = ?",license,(err,result) => {
             let user = result[0]
-            let telefono = user.phone_number
+            let oldPhoneNumber = user.phone_number
             if (user) {
-                connection.query(`UPDATE users SET phone_number = ${number} WHERE phone_number = ${user.phone_number}`,(err,result) => {
+                connection.query(`UPDATE users SET phone_number = ${newPhoneNumber} WHERE phone_number = ${user.phone_number}`,(err,result) => {
                     if (err) console.log(err)
                     telEmbed.setColor("GREEN")
-                    .setTitle("¡La transacción es exitosa!")
+                    .setTitle(`¡Acción completada!`)
                     .setAuthor(embed_author_server, icon)
-                    .setDescription(`${hex} Número de teléfono cambiado exitosamente \`${telefono}\` numero \`${number}\` cambiado!`)
+                    .setDescription(`¡El número de teléfono de la licencia \`${license}\` ha sido cambiado exitosamente!`)
+                    .addFields(
+                        {name: "Número viejo", value: oldPhoneNumber, inline: true},
+                        {name: "Número nuevo", value: newPhoneNumber, inline: true}
+                    )
                     message.channel.send(telEmbed)
                 })
             } else {
                 telEmbed.setColor("RED")
-                .setDescription(`No se encontró ningún usuario con el ID hex ingresado.`)
-                .setTitle("¡operación fallida!")
+                .setDescription(`No se encontró ningún usuario con el ID license ingresado.`)
+                .setTitle("¡Operación fallida!")
                 .setAuthor(embed_author_server, icon)
                 message.channel.send(telEmbed)
                 return;

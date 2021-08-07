@@ -32,17 +32,21 @@ module.exports.run = async (client, message, args) => {
             connection.query(`UPDATE users SET firstname = '${firstname}' WHERE firstname = '${user.firstname}' AND identifier = '${license}'`, (err, result) => { if (err) console.log(err) })
             connection.query(`UPDATE users SET lastname = '${lastname}' WHERE lastname = '${user.lastname}' AND identifier = '${license}'`, (err, result) => { if (err) console.log(err) })
             nameEmbed.setColor("GREEN")
-                .setDescription(`¡El nombre del personaje del usuario con la licencia \'${license}\' ha sido cambiado de \`${oldname} ${oldlastname}\` a \`${firstname} ${lastname}\` exitosamente!.`)
+                .setDescription(`¡El nombre del personaje del usuario con la licencia \'${license}\' ha sido cambiado exitosamente!.`)
+                .addFields(
+                    {name: "Nombre anterior", value: `${oldname} ${oldlastname}`, inline: true},
+                    {name: "Nombre nuevo", value: `${firstname} ${lastname}`, inline: true}
+                )
+                .setTitle(`¡Acción completada!`)
                 .setAuthor(embed_author_server, icon)
-                .setTitle("¡El cambio fue realizado con exito!")
             message.channel.send(nameEmbed)
         })
 
     } else {
         nameEmbed.setColor("RED")
             .setAuthor(embed_author_server, icon)
-            .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
             .setTitle("¡Operación fallida!")
+            .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
         message.channel.send(nameEmbed)
         return;
     }
