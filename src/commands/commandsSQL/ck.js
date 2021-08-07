@@ -8,42 +8,55 @@ module.exports.run = async (client, message, args) => {
     const ckEmbed = new MessageEmbed()
         .setFooter(embed_footer_sever)
     if (message.member.hasPermission("ADMINISTRATOR")) {
-        let hex = args[0]
-        if (!hex) return message.channel.send("Debes entrar en un hex.")
-        if (hex.startsWith("steam:") === false) {
-            hex = `steam:${hex}`
-        }
+        let license = args[0]
+        if (!license) return message.channel.send("Debes ingresar una licencia.")
+        /*if (license.startsWith("steam:") === false) {
+            license = `steam:${license}`
+        }*/
         message.channel.send("¿Estás seguro? Si estás seguro de este mensaje \`si\` responda escribiendo. Tienes 10 segundos.")
         message.channel.awaitMessages(m => m.author.id === message.author.id, {
             max: 1,
             time: 10000
         }).then(c => {
             if (c.first().content.toLowerCase() === "si") {
-                connection.query("SELECT * FROM users WHERE identifier = ?", hex, (err, result) => {
+                connection.query("SELECT * FROM users WHERE identifier = ?", license, (err, result) => {
                     let user = result[0]
                     if (user) {
-                        connection.query("DELETE FROM users WHERE identifier = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM users WHERE identifier = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM addon_account_data WHERE owner = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM addon_account_data WHERE owner = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM characters WHERE identifier = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM characters WHERE identifier = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM datastore_data WHERE owner = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM user_accounts WHERE identifier = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM user_accounts WHERE identifier = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM user_inventory WHERE identifier = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM user_inventory WHERE identifier = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM user_licenses WHERE owner = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM user_licenses WHERE owner = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM owned_vehicles WHERE owner = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM owned_vehicles WHERE owner = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM phone_users_contacts WHERE identifier = ?", license, (err, results, fields) => {
                         })
-                        connection.query("DELETE FROM phone_users_contacts WHERE identifier = ?", hex, (err, results, fields) => {
+                        connection.query("DELETE FROM loaf_bought_houses WHERE owner = ?", license, (err, results, fields) => {
                         })
+                        connection.query("DELETE FROM loaf_housing WHERE identifier = ?", license, (err, results, fields) => {
+                        })
+                        connection.query("DELETE FROM loaf_keys WHERE identifier = ?", license, (err, results, fields) => {
+                        })
+                        connection.query("DELETE FROM loaf_last_login WHERE identifier = ?", license, (err, results, fields) => {
+                        })
+                        connection.query("DELETE FROM billing WHERE identifier = ?", license, (err, results, fields) => {
+                        })
+                        /*
+                            NOTA: Hay algunas tablas que usan la licencia y otras que usan el steamHEX. POR ESO SE HIZO EL CAMBIO.
+                                  Faltan algunas tablas que están vacías.
+                            SELECT * FROM hotels_rooms WHERE owner = "";
+                        */
                         ckEmbed.setAuthor(embed_author_server, message.guild.iconURL())
                             .setTitle("¡La petición fue un exito!")
                             .setColor("GREEN")
-                            .setDescription(`${hex} ¡La petición de ck fue ejecutada con exito!`)
+                            .setDescription(`${license} ¡La petición de ck fue ejecutada con exito!`)
                         message.channel.send(ckEmbed)
                     } else {
                         ckEmbed.setAuthor(embed_author_server, message.guild.iconURL())
@@ -58,7 +71,7 @@ module.exports.run = async (client, message, args) => {
         })
     } else {
         ckEmbed.setColor("RED")
-            .setAuthor("ArcanusRP - SQL", icon)
+            .setAuthor(embed_author_server, icon)
             .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
             .setTitle("¡Operación fallida!")
         message.channel.send(ckEmbed)

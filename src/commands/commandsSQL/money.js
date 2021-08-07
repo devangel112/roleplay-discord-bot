@@ -1,45 +1,102 @@
 var config = require('../../bdd.js');
-const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever, prefix } = require('../../../config/config.json');
 const { MessageEmbed } = require('discord.js');
 var connection = config.connection
 
-
-module.exports.run = async(client, message, args) => {
-    const icon = message.guild.iconURL();
-    const telEmbed = new MessageEmbed()
-    .setFooter(embed_footer_sever)
+module.exports.run = async (client, message, args) => {
     if (message.member.hasPermission("ADMINISTRATOR")) {
-        let hex = args[0]
-        if (hex.startsWith("steam:") === false) {
-            hex = `steam:${hex}`
+        if (args[0] && args[1] && args[2]) {
+            let license = args[0];
+            let account = args[1].toLowerCase();
+            let newBalance = args[2];
+            connection.query("SELECT * FROM users WHERE identifier = ?", license, (err, result) => {
+                let user = result[0];
+                if (user) {
+                    let cuentas = [user.accounts]
+                    let json = JSON.parse(cuentas.join(' '))
+                    let dinero = json.money
+                    let dineroBanco = json.bank
+                    let dineroNegro = json.black_money
+                    switch (account) {
+                        case "money":
+                            connection.query(`UPDATE users SET accounts = '{"money":${newBalance},"bank":${dineroBanco},"black_money":${dineroNegro}}' WHERE identifier = ?`, license, (err, result) => {
+                                const moneyChanged = new MessageEmbed()
+                                    .setAuthor(embed_author_server, message.guild.iconURL())
+                                    .setTitle(`¡Acción completada!`)
+                                    .setDescription(`Dinero en mano modificado`)
+                                    .addFields(
+                                        { name: "Balance anterior", value: `$${dinero}`, inline: true },
+                                        { name: "Balance nuevo", value: `$${newBalance}`, inline: true }
+                                    )
+                                    .setFooter(embed_footer_sever)
+                                    .setTimestamp()
+                                    .setColor("GREEN")
+                                message.channel.send(moneyChanged)
+                            })
+                            break;
+                        case "bank":
+                            connection.query(`UPDATE users SET accounts = '{"money":${dinero},"bank":${newBalance},"black_money":${dineroNegro}}' WHERE identifier = ?`, license, (err, result) => {
+                                const bankChanged = new MessageEmbed()
+                                    .setAuthor(embed_author_server, message.guild.iconURL())
+                                    .setTitle(`¡Acción completada!`)
+                                    .setDescription(`Cuenta bancaria modificada`)
+                                    .addFields(
+                                        { name: "Balance anterior", value: `$${dineroBanco}`, inline: true },
+                                        { name: "Balance nuevo", value: `$${newBalance}`, inline: true }
+                                    )
+                                    .setFooter(embed_footer_sever)
+                                    .setTimestamp()
+                                    .setColor("GREEN")
+                                message.channel.send(bankChanged)
+                            })
+                            break;
+                        case "black_money":
+                            connection.query(`UPDATE users SET accounts = '{"money":${dinero},"bank":${dineroBanco},"black_money":${newBalance}}' WHERE identifier = ?`, license, (err, result) => {
+                                const blackMoneyChanged = new MessageEmbed()
+                                    .setAuthor(embed_author_server, message.guild.iconURL())
+                                    .setTitle(`¡Acción completada!`)
+                                    .setDescription(`Dinero negro modificado`)
+                                    .addFields(
+                                        { name: "Balance anterior", value: `$${dineroNegro}`, inline: true },
+                                        { name: "Balance nuevo", value: `$${newBalance}`, inline: true }
+                                    )
+                                    .setFooter(embed_footer_sever)
+                                    .setTimestamp()
+                                    .setColor("GREEN")
+                                message.channel.send(blackMoneyChanged)
+                            })
+                            break;
+                        default:
+                            const errorEmbed = new MessageEmbed()
+                                .setAuthor(embed_author_server, message.guild.iconURL())
+                                .setTitle(`¡Acción fallida!`)
+                                .setDescription(`No se ha podido encontrar la cuenta ${account}`)
+                                .setFooter(embed_footer_sever)
+                                .setTimestamp()
+                                .setColor("RED")
+                            message.channel.send(errorEmbed)
+                            break;
+                    }
+                } else {
+                    const errorEmbed = new MessageEmbed()
+                        .setAuthor(embed_author_server, message.guild.iconURL())
+                        .setTitle(`¡Acción fallida!`)
+                        .setDescription(`No se ha podido encontrar al usuario **${license}**`)
+                        .setFooter(embed_footer_sever)
+                        .setTimestamp()
+                        .setColor("RED")
+                    message.channel.send(errorEmbed)
+                }
+            })
+        } else {
+            const noArgs = new MessageEmbed()
+                .setAuthor(embed_author_server, message.guild.iconURL())
+                .setTitle(`¡Error!`)
+                .setDescription(`Uso correcto ${prefix}money (licencia) (cuenta) (nuevo balance)`)
+                .setFooter(embed_footer_sever)
+                .setTimestamp()
+                .setColor("RED")
+            message.channel.send(noArgs)
         }
-        let money = args[1]
-
-        connection.query("SELECT * FROM users WHERE identifier = ?",hex,(err,result) => {
-            let user = result[0]
-            let accounts = user.accounts
-            if (user) {
-                connection.query(`UPDATE users SET money = '${money}' WHERE identifier = '${hex}`,(err,result) => { // Fixear aqui
-                    if (err) console.log(err)
-                    telEmbed.setColor("GREEN")
-                    .setTitle("¡La transacción es exitosa!")
-                    .setAuthor(embed_author_server, icon)
-                    message.channel.send(telEmbed)
-                })
-            } else {
-                telEmbed.setColor("RED")
-                .setDescription(`No se encontró ningún usuario con el ID hex ingresado.`)
-                .setTitle("¡operación fallida!")
-                .setAuthor(embed_author_server, icon)
-                message.channel.send(telEmbed)
-                return;
-            }
-        })
-    } else {
-        telEmbed.setColor("RED")
-        .setAuthor(embed_author_server, icon)
-        .setDescription(`¡No tienes la autorización necesaria para hacer esto!`)
-        message.channel.send(telEmbed)
-        return;
     }
 }

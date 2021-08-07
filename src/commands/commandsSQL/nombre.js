@@ -9,30 +9,30 @@ module.exports.run = async (client, message, args) => {
     const nameEmbed = new MessageEmbed()
         .setFooter(embed_footer_sever)
     if (message.member.hasPermission("ADMINISTRATOR")) {
-        let hex = args[0]
-        if (hex.startsWith("steam:") === false) {
+        let license = args[0]
+        /*if (hex.startsWith("steam:") === false) {
             hex = `steam:${hex}`
-        }
+        }*/
         let firstname = args[1]
         let lastname = args[2]
-        if (!firstname || !lastname) return message.channel.send("¡Mal uso!\nEj: !nombre 11000010aceb57a nombre apellido")
+        if (!firstname || !lastname) return message.channel.send("¡Mal uso!\nEj: !nombre (licencia) (nombre) (apellido)")
 
-        connection.query("SELECT * FROM users WHERE identifier = ?", hex, (err, result) => {
+        connection.query("SELECT * FROM users WHERE identifier = ?", license, (err, result) => {
             let user = result[0]
             let oldname = user.firstname
             let oldlastname = user.lastname
             if (!user) {
                 nameEmbed.setColor("RED")
-                    .setDescription(`No se encontró ningún usuario con el ID hexadecimal ingresado.`)
+                    .setDescription(`No se encontró ningún usuario con la licencia ingresada.`)
                     .setAuthor(embed_author_server, icon)
                     .setTitle("¡Operación fallida!")
                 message.channel.send(nameEmbed)
                 return;
             }
-            connection.query(`UPDATE users SET firstname = '${firstname}' WHERE firstname = '${user.firstname}'`, (err, result) => { if (err) console.log(err) })
-            connection.query(`UPDATE users SET lastname = '${lastname}' WHERE lastname = '${user.lastname}'`, (err, result) => { if (err) console.log(err) })
+            connection.query(`UPDATE users SET firstname = '${firstname}' WHERE firstname = '${user.firstname}' AND identifier = '${license}'`, (err, result) => { if (err) console.log(err) })
+            connection.query(`UPDATE users SET lastname = '${lastname}' WHERE lastname = '${user.lastname}' AND identifier = '${license}'`, (err, result) => { if (err) console.log(err) })
             nameEmbed.setColor("GREEN")
-                .setDescription(`${hex} ID del jugador con identificación \`${oldname} ${oldlastname}\` Fue cambiado a \`${firstname} ${lastname}\` Con éxito!.`)
+                .setDescription(`¡El nombre del personaje del usuario con la licencia \'${license}\' ha sido cambiado de \`${oldname} ${oldlastname}\` a \`${firstname} ${lastname}\` exitosamente!.`)
                 .setAuthor(embed_author_server, icon)
                 .setTitle("¡El cambio fue realizado con exito!")
             message.channel.send(nameEmbed)

@@ -3,6 +3,7 @@ const { embed_author_server, embed_footer_sever } = require('../../../config/con
 const { MessageEmbed } = require('discord.js');
 var connection= config.connection
 
+// FALTA EDITAR
 
 module.exports.run = async(client, message, args) => {
     const icon = message.guild.iconURL();
