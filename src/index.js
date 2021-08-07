@@ -11,7 +11,7 @@ const botVersion = require('../package.json').version;
 client.commands = new Map();
 
 client.on('ready', () => {
-  updatePlayerCount(client, 5)
+  //updatePlayerCount(client, 5)
   console.log(`╔═══════════════════════════════╗\n  » Arcanus Bot V${botVersion} activo «\n╚═══════════════════════════════╝`)
 });
 
