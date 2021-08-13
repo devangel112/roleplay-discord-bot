@@ -4,14 +4,25 @@ const { MessageEmbed } = require('discord.js');
 var connection = config.connection
 
 module.exports.run = async (client, message, args) => {
+    let buscar = ""
     const icon = message.guild.iconURL();
     const identEmbed = new MessageEmbed()
         .setFooter(embed_footer_sever)
         .setTimestamp()
     if (message.member.hasPermission("ADMINISTRATOR")) {
         let license = args[0]
-        if (!license) return message.channel.send("¡Debes ingresar la licencia del usuario!")
-        let buscar = "SELECT * FROM users WHERE identifier = ?"
+        if (!license) return message.channel.send(
+            new MessageEmbed()
+            .setColor("ORANGE")
+            .setDescription(`¡Debes ingresar la licencia del usuario!`)
+            .setTitle("¡Operación fallida!")
+            .setAuthor(embed_author_server, icon)
+            )
+        if (license.startsWith("steam:") === true) {
+            buscar = "SELECT * FROM users WHERE steamHex = ?"
+        } else {
+            buscar = "SELECT * FROM users WHERE identifier = ?"
+        }
         /*if (license.startsWith("steam:") === false) {
             license = `steam:${license}`
         }*/
@@ -32,19 +43,30 @@ module.exports.run = async (client, message, args) => {
             } else {
                 sex = "Masculino"
             }
+            let cuentas = [user.accounts]
+            let json = JSON.parse(cuentas.join(' '))
+            let dinero = json.money
+            let dineroBanco = json.bank
+            let dineroNegro = json.black_money
+            let nombre = `${user.firstname} ${user.lastname}`
             identEmbed.setColor("GREEN")
                 .setAuthor(embed_author_server, icon)
                 .setThumbnail(message.guild.iconURL())
-                .setTitle(`Datos`)
-                .addField(`🆔・Licencia`, user.identifier)
-                .addField(`💻・Nombre IC`, `${user.firstname} ${user.lastname}`)
-                .addField(`📆・Fecha de nacimiento`, `${user.dateofbirth}`)
-                .addField(`👫・Género`, sex)
-                .addField(`💼・Trabajo`, `${user.job}`)
-                .addField(`💰・Billetera`, `${user.accounts}`)
-                .addField(`📳・Telefóno`, `${user.phone_number}`)
-                .addField(`📦・Inventario`, `${user.inventory}`)
-                .addField(`🔪・Armas`, `${user.loadout}`)
+                .setTitle(`👥・Personaje`)
+                .addFields(
+                    {name: `🆔・Licencia`, value: user.identifier},
+                    {name: `🆔・Steam HEX`, value: user.steamHex},
+                    {name: `💳・Nombre IC`, value: nombre, inline: true},
+                    {name: `📆・Fecha de nacimiento`, value: user.dateofbirth, inline: true},
+                    {name: `👫・Género`, value: sex, inline: true},
+                    {name: `💵・Dinero`, value: `$ ${dinero}`, inline: true},
+                    {name: `💰・Dinero Negro`, value: `$ ${dineroNegro}`, inline: true},
+                    {name: `💳・Banco`, value: `$ ${dineroBanco}`, inline: true},
+                    {name: `💼・Trabajo`, value: user.job, inline: true},
+                    {name: `📱・Teléfono`, value: user.phone_number, inline: true},
+                    {name: `📦・Inventario`, value: user.inventory},
+                    {name: `🔪・Armas`, value: user.loadout}
+                )
             message.channel.send(identEmbed)
         })
     } else {
