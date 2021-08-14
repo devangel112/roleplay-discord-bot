@@ -1,6 +1,6 @@
 {
   "name": "arcanus.bot",
-  "version": "1.9.6",
+  "version": "2.0.0",
   "description": "Bot de discord desarrollado para uso exclusivo de Arcanus RP",
   "main": "src/index.js",
   "scripts": {
