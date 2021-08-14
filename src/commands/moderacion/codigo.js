@@ -7,12 +7,13 @@ let benefits = [`Mejora nivel 2`, `Mejoras nivel 2`, `Mejoras nivel 3`, `Mejoras
 module.exports.run = async (client, message, args) => {
     const shortid = require('shortid');
     const icon = message.guild.iconURL();
+    const getMessage = message;
+
     if (message.member.hasPermission("ADMINISTRATOR")) {
         const codeRandom = shortid.generate();
-
-        if (args) {
-            message.channel.send(embedCode(codeRandom, args, icon))
-            client.channels.cache.get(tunning_code_channel).send(embedCodeVerificator(codeRandom, args, icon)).then(m => {
+        if (args[0]) {
+            message.channel.send(embedCode(getMessage, codeRandom, args, icon))
+            client.channels.cache.get(tunning_code_channel).send(embedCodeVerificator(getMessage, codeRandom, args, icon)).then(m => {
                 m.react("🎫")
             })
         } else {
@@ -29,7 +30,7 @@ module.exports.run = async (client, message, args) => {
 }
 
 
-function embedCode(codeRandom, args, icon) {
+function embedCode(message, codeRandom, args, icon) {
 
     const code = new MessageEmbed()
         .setAuthor(embed_author_server, icon)
@@ -74,7 +75,7 @@ function embedCode(codeRandom, args, icon) {
     }
 }
 
-function embedCodeVerificator(codeRandom, args, icon) {
+function embedCodeVerificator(message, codeRandom, args, icon) {
     const code = new MessageEmbed()
         .setAuthor(embed_author_server, icon)
         .addField('Generado por:', `@${message.author.username}`)

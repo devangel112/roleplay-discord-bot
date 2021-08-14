@@ -55,7 +55,7 @@ client.on('message', async function (message) {
       .setColor("YELLOW")
       .setTimestamp()
 
-    message.guild.channels.cache.get(log_channel).send(embedLog);
+    client.channels.cache.get(log_channel).send(embedLog);
 
   } else {
     const embedError = new MessageEmbed()
