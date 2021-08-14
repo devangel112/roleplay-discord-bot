@@ -15,7 +15,7 @@ module.exports.run = async (client, message, args) => {
                 .setColor("#FF5BD2")
                 .addFields(
                     { name: 'Dinero limpio', value: '$15.000 dólares', inline: true },
-                    { name: 'Mejora de vehículo', value: 'Nivel 2', inline: true },
+                    { name: 'Mejora de vehículo', value: 'Nivel 2 (Válido una vez)', inline: true },
                 )
                 .setFooter(embed_footer_sever)
                 .setTimestamp()
