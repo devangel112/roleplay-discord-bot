@@ -42,32 +42,32 @@ function embedCode(message, codeRandom, args, icon) {
     switch (args[0]) {
         case vips[0]:
         case "1":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[0]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[0]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         case vips[1]:
         case "2":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[1]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[1]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         case vips[2]:
         case "3":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[2]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[2]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         case vips[3]:
         case "4":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[3]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[3]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         case vips[4]:
         case "5":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[4]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[4]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         case vips[5]:
         case "6":
-            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n${benefits[5]}\n\n¡Ve al taller mecánico para canjear tu código!`)
+            code.setDescription(`¡Su código para tunning es: **${codeRandom}**, es valido por solo **[1]** uso y tiene los siguientes beneficios!\n**${benefits[5]}**\n\n¡Ve al taller mecánico para canjear tu código!`)
             return code
             break;
         default:
@@ -84,26 +84,32 @@ function embedCodeVerificator(message, codeRandom, args, icon) {
         .setTimestamp()
     switch (args[0]) {
         case vips[0]:
+        case "1":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[0]}**${react}`)
             return code
             break;
         case vips[1]:
+        case "2":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[1]}**${react}`)
             return code
             break;
         case vips[2]:
+        case "3":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[2]}**${react}`)
             return code
             break;
         case vips[3]:
+        case "4":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[3]}**${react}`)
             return code
             break;
         case vips[4]:
+        case "5":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[4]}**${react}`)
             return code
             break;
         case vips[5]:
+        case "6":
             code.setDescription(`¡Se ha generado un código: **${codeRandom}**!\n\nContiene **${benefits[5]}**${react}`)
             return code
             break;
