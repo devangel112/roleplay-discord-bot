@@ -59,11 +59,11 @@ client.on('message', async function (message) {
 
   } else {
     const embedError = new MessageEmbed()
-    .setAuthor(embed_author_server, message.guild.iconURL())
-    .setDescription(`${message.author} ¡El comando ingresado no existe!`)
-    .setFooter(embed_footer_sever)
-    .setColor("RED")
-    .setTimestamp()
+      .setAuthor(embed_author_server, message.guild.iconURL())
+      .setDescription(`${message.author} ¡El comando ingresado no existe!`)
+      .setFooter(embed_footer_sever)
+      .setColor("RED")
+      .setTimestamp()
     message.channel.send(embedError).then(m => {
       m.delete({ timeout: 10000 })
     })
@@ -93,7 +93,7 @@ client.on('guildMemberAdd', member => {
     .setDescription('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano número ' + member.guild.memberCount)
     .setImage('https://cdn.mos.cms.futurecdn.net/93GAa4wm3z4HbenzLbxWeQ-650-80.jpg.webp')
     .setTimestamp()
-  member.guild.channels.cache.get(welcome_channel).send(welcomeEmbed)
+  client.channels.cache.get(welcome_channel).send(welcomeEmbed)
 })
 
 client.on('guildMemberRemove', member => {
@@ -103,7 +103,7 @@ client.on('guildMemberRemove', member => {
     .setDescription('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arcanus RP')
     .setImage('https://gamewith-en.akamaized.net/article/thumbnail/rectangle/22183.png')
     .setTimestamp()
-  member.guild.channels.cache.get(bye_channel).send(goodbyeEmbed)
+  client.channels.cache.get(bye_channel).send(goodbyeEmbed)
 })
 
 client.on('clickButton', async (button) => {
