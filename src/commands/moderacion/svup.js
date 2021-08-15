@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
             .setThumbnail(message.guild.iconURL({ dynamic: true, size: 512 }))
             .setDescription('¡El servidor se encuentra actualmente ACTIVO! - :white_check_mark:')
             .addField('IP:', 'connect arcanus.ukader.net')
-            .setImage('https://media.discordapp.net/attachments/823769093454692374/823769181538484264/314141342314123.gif?width=742&height=418')
+            .setImage('https://cdn.discordapp.com/attachments/831568080438034503/875979875243143178/LOGO.png')
             .setFooter('¡Disfruta del servidor!')
             .setTimestamp()
         message.channel.bulkDelete(1, true)
