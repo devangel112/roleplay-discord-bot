@@ -4,7 +4,7 @@ require('discord-buttons')(client);
 const fs = require('fs').promises;
 const { updatePlayerCount } = require('./commands/utiles/statusbot')
 const path = require('path');
-const { token, prefix, developer, embed_author_server, embed_footer_sever, log_channel, suggestion_channel, welcome_channel, bye_channel } = require('../config/config.json');
+const { token, prefix, developer, embed_author_server, embed_footer_sever, log_channel, suggestion_channel, welcome_channel, bye_channel, main_guild_id } = require('../config/config.json');
 const { firstLetterM } = require('./helper');
 const botVersion = require('../package.json').version;
 
@@ -87,23 +87,27 @@ client.on('message', async function (message) {
 })();
 
 client.on('guildMemberAdd', member => {
-  const welcomeEmbed = new MessageEmbed()
-    .setColor('GREEN')
-    .setAuthor(embed_author_server, member.guild.iconURL())
-    .setDescription('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano número ' + member.guild.memberCount)
-    .setImage('https://cdn.mos.cms.futurecdn.net/93GAa4wm3z4HbenzLbxWeQ-650-80.jpg.webp')
-    .setTimestamp()
-  client.channels.cache.get(welcome_channel).send(welcomeEmbed)
+  if (member.guild.id === main_guild_id) {
+    const welcomeEmbed = new MessageEmbed()
+      .setColor('GREEN')
+      .setAuthor(embed_author_server, member.guild.iconURL())
+      .setDescription('[📥] Bienvenido/a **' + member.user.username + '** a Arcanus RP eres el ciudadano número ' + member.guild.memberCount)
+      .setImage('https://cdn.discordapp.com/attachments/849021063580090418/876586125941157918/entrada.jpg')
+      .setTimestamp()
+    client.channels.cache.get(welcome_channel).send(welcomeEmbed)
+  }
 })
 
 client.on('guildMemberRemove', member => {
-  const goodbyeEmbed = new MessageEmbed()
-    .setColor('RED')
-    .setAuthor('Arcanus RP', member.guild.iconURL())
-    .setDescription('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arcanus RP')
-    .setImage('https://gamewith-en.akamaized.net/article/thumbnail/rectangle/22183.png')
-    .setTimestamp()
-  client.channels.cache.get(bye_channel).send(goodbyeEmbed)
+  if (member.guild.id === main_guild_id) {
+    const goodbyeEmbed = new MessageEmbed()
+      .setColor('RED')
+      .setAuthor('Arcanus RP', member.guild.iconURL())
+      .setDescription('[📤] Hasta Luego **' + member.user.username + '** esperamos que la hayas pasado bien en Arcanus RP')
+      .setImage('https://cdn.discordapp.com/attachments/831568080438034503/876678318722793582/salida.jpg')
+      .setTimestamp()
+    client.channels.cache.get(bye_channel).send(goodbyeEmbed)
+  }
 })
 
 client.on('clickButton', async (button) => {
