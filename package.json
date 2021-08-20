@@ -18,6 +18,7 @@
     "discord.js-pagination": "^1.0.3",
     "ffmpeg-static": "^4.2.7",
     "fs": "0.0.1-security",
+    "intl": "^1.2.5",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "node-dev": "^6.2.0",
