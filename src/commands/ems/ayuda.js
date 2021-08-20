@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { embed_author_server, embed_footer_sever, ems_guild_id, dev_guild_id, prefix } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_server, ems_guild_id, dev_guild_id } = require('../../../config/config.json');
 
 module.exports.run = async (client, message, args) => {
     try {
@@ -26,7 +26,7 @@ module.exports.run = async (client, message, args) => {
             ]
             const embed = new MessageEmbed()
                 .setAuthor(embed_author_server, message.guild.iconURL())
-                .setFooter(embed_footer_sever)
+                .setFooter(embed_footer_server)
                 .setTitle("Comandos disponibles")
                 .setColor("GREEN")
                 .setTimestamp();

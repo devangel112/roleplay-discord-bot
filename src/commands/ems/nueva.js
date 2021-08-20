@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { embed_author_server, embed_footer_sever, ems_guild_id, dev_guild_id } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_server, ems_guild_id, dev_guild_id } = require('../../../config/config.json');
 var config = require('../../bdd.js');
 var conexion = config.connection;
 
