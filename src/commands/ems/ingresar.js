@@ -59,8 +59,8 @@ module.exports.run = async (client, message, args) => {
                                                     inline: true,
                                                 }
                                             )
-                                            .setColor("RANDOM")
-                                            .setFooter(`Desarrollado por Angel112`)
+                                            .setColor("GREEN")
+                                            .setFooter(embed_footer_server)
                                         message.channel.send({ embed });
                                     })
                                 });
