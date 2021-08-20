@@ -1,5 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { embed_author_server, embed_footer_sever, ems_guild_id, dev_guild_id } = require('../../../config/config.json');
+var config = require('../../bdd.js');
+var conexion = config.connection;
 
 module.exports.run = async (client, message, args) => {
     if (message.guild.id === ems_guild_id || message.guild.id === dev_guild_id) {

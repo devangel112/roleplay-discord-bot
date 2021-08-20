@@ -1,5 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { embed_author_server, embed_footer_sever, ems_guild_id, dev_guild_id } = require('../../../config/config.json');
+var config = require('../../bdd.js');
+var conexion = config.connection;
 
 module.exports.run = async (client, message, args) => {
     if (message.guild.id === ems_guild_id || message.guild.id === dev_guild_id) {
@@ -34,7 +36,7 @@ module.exports.run = async (client, message, args) => {
                                     fechaNacimientoPaciente = new Intl.DateTimeFormat('es-MX', options).format(result.fechaNacimiento);
                                 });
 
-                                const embed = new Discord.MessageEmbed()
+                                const embed = new MessageEmbed()
                                     .setAuthor("Identificador: " + idPaciente + " Paciente: " + nombrePaciente)
                                     .addFields(
                                         {
@@ -76,7 +78,7 @@ module.exports.run = async (client, message, args) => {
                             grupoSanguineoPaciente = result.grupoSanguineo;
                             fechaNacimientoPaciente = new Intl.DateTimeFormat('es-MX', options).format(result.fechaNacimiento);
                         });
-                        const embed = new Discord.MessageEmbed()
+                        const embed = new MessageEmbed()
                             .setAuthor("Identificador: " + idPaciente + " Paciente: " + nombrePaciente)
                             .addFields(
                                 {
