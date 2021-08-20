@@ -1,7 +1,9 @@
 {
     "token": "YOUR_AWESOME_TOKEN_HERE",
     "prefix": "YOUR_PREFIX_HERE",
+    "dev_guild_id": "YOUR_DEV_GUILD_ID",
     "main_guild_id": "YOUR_MAIN_GUILD_ID",
+    "ems_guild_id": "YOUR_EMS_GUILD_ID",
     "embed_author_server": "YOUR_TEXT_HERE",
     "embed_footer_sever": "YOUR_TEXT_HERE",
     "log_channel": "YOUR_CHANNEL_ID_HERE",

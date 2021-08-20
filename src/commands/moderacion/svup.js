@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args) => {
                 .setAuthor(embed_author_server, message.guild.iconURL())
                 .setThumbnail(message.guild.iconURL({ dynamic: true, size: 512 }))
                 .setDescription('¡El servidor se encuentra actualmente ACTIVO! - :white_check_mark:')
-                .addField('IP:', 'connect arcanus.ukader.net')
+                .addField('IP:', 'connect cfx.re/join/ykdjk9')
                 .setImage('https://cdn.discordapp.com/attachments/831568080438034503/875979875243143178/LOGO.png')
                 .setFooter('¡Disfruta del servidor!')
                 .setTimestamp()
