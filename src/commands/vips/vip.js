@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js')
-const { embed_author_server, embed_footer_sever, vip_info_channel } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever, vip_info_channel, main_guild_id } = require('../../../config/config.json');
 
 module.exports.run = async (client, message, args) => {
-    const vipRanks = ["Booster", "Gema", "Zafiro", "Esmeralda", "Diamante", "Rubí"];
+    try {
+        const vipRanks = ["Booster", "Gema", "Zafiro", "Esmeralda", "Diamante", "Rubí"];
     const vipNames = ["VIP Gema", "VIP Zafiro", "VIP Esmeralda", "VIP Diamante", "VIP Rubí"];
     let vip = "";
     if (message.guild.id === main_guild_id) {
@@ -20,7 +21,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed1)
+                message.channel.send(embed1)
                 break;
             case "gema":
                 const embed2 = new MessageEmbed()
@@ -38,7 +39,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed2)
+                message.channel.send(embed2)
                 break;
             case "zafiro":
                 const embed3 = new MessageEmbed()
@@ -57,7 +58,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed3)
+                message.channel.send(embed3)
                 break;
             case "esmeralda":
                 const embed4 = new MessageEmbed()
@@ -76,7 +77,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed4)
+                message.channel.send(embed4)
                 break;
             case "diamante":
                 const embed5 = new MessageEmbed()
@@ -96,7 +97,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed5)
+                message.channel.send(embed5)
                 break;
             case "rubi":
             case "rubí":
@@ -119,7 +120,7 @@ module.exports.run = async (client, message, args) => {
                     )
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
-                message.guild.channels.cache.get(vip_info_channel).send(embed6)
+                message.channel.send(embed6)
                 break;
             default:
                 const embed7 = new MessageEmbed()
@@ -129,7 +130,7 @@ module.exports.run = async (client, message, args) => {
                     .setFooter(embed_footer_sever)
                     .setTimestamp()
                     .setColor("ORANGE")
-                message.guild.channels.cache.get(vip_info_channel).send(embed7)
+                message.channel.send(embed7)
                 break;
         }
     } else {
@@ -142,5 +143,7 @@ module.exports.run = async (client, message, args) => {
         message.channel.send(accessDeniedEmbed)
         return;
     }
-
+    } catch (error) {
+        console.log(error)
+    }
 }

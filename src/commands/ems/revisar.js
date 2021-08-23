@@ -4,8 +4,8 @@ var config = require('../../bdd.js');
 var conexion = config.connection;
 
 module.exports.run = async (client, message, args) => {
-    if (message.guild.id === ems_guild_id || message.guild.id === dev_guild_id) {
-        try {
+    try {
+        if (message.guild.id === ems_guild_id || message.guild.id === dev_guild_id) {
             const options = {
                 year: 'numeric', month: 'numeric', day: 'numeric',
             };
@@ -109,8 +109,8 @@ module.exports.run = async (client, message, args) => {
                     }
                 })
             })
-        } catch (error) {
-            console.error(error);
         }
+    } catch (error) {
+        console.error(error);
     }
 }

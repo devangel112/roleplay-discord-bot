@@ -1,10 +1,10 @@
 const { MessageEmbed } = require('discord.js');
-const { embed_author_server, embed_footer_sever } = require('../../../config/config.json');
+const { embed_author_server, embed_footer_sever, main_guild_id } = require('../../../config/config.json');
 let roles = ''
 
 module.exports.run = async (client, message, args) => {
     if (message.guild.id === main_guild_id) {
-        if (message.author.hasPermission("ADMINISTRATOR")) {
+        if (message.member.hasPermission("ADMINISTRATOR")) {
 
             let rolesArray = message.guild.roles.cache
                 .sort((a, b) => b.position - a.position)
