@@ -108,7 +108,7 @@ module.exports.run = async (client, message, args) => {
                     .setDescription(`El VIP ${vipRanks[5]} tiene los siguientes beneficios.`)
                     .addFields(
                         { name: 'Dinero limpio', value: '$150.000 dólares', inline: true },
-                        { name: 'Casa', value: 'Gama baja', inline: true },
+                        { name: 'Casa', value: 'Gama alta', inline: true },
                         { name: 'Mejora de vehículo', value: 'Nivel máxmo (Válido una vez)', inline: true },
                         { name: 'Mejora de cosméticos', value: ':white_check_mark: (Válido una vez)', inline: true },
                         { name: 'Cupón de descuento', value: '50% (Válido una vez)', inline: true },
