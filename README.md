@@ -1,4 +1,4 @@
-# Arcanus Roleplay Discord Bot
+# Roleplay Discord Bot
 
 _Bot de discord desarrollado para la comunidad Arcanus Roleplay._
 
@@ -67,8 +67,7 @@ _Se iniciará el bot con la token generada, y una vez generados los mensajes de 
 
 _Aquí la lista de desarrolladores que han participado en el desarrollo de este bot._
 
-* **Shacosu** - *Trabajo Inicial* - [Shacosu](https://github.com/shacosu)
-* **Ángel Pérez** - *Actualizaciones & documentación* - [Angel112](https://github.com/devangel112)
+* **Ángel Pérez** - [Angel112](https://github.com/devangel112)
 
 ## Expresiones de Gratitud 🎁
 
