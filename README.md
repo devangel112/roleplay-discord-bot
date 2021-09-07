@@ -7,7 +7,7 @@ _Bot de discord desarrollado para la comunidad Arcanus Roleplay._
 _Deberás clonar el proyecto en tu computadora / servidor de la siguiente manera:_
 
 ```
-git clone https://github.com/devangel112/arcanus-discord-bot.git
+git clone https://github.com/devangel112/roleplay-discord-bot.git
 ```
 
 
