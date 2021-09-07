@@ -1,7 +1,5 @@
 # Roleplay Discord Bot
 
-_Bot de discord desarrollado para la comunidad Arcanus Roleplay._
-
 ## Comenzando 🚀
 
 _Deberás clonar el proyecto en tu computadora / servidor de la siguiente manera:_
